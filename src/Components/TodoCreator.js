@@ -1,31 +1,55 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../style/TodoCreator.css";
 
-function TodoCreator() {
+function TodoCreator(props) {
   const [todoItem, setTodoItem] = useState("");
-  const [initialTime, setInitialTime] = useState("");
-  const [editTime, setEditTime] = useState("");
+  const [initialDate, setInitialDate] = useState("");
+  // const [editTime, setEditTime] = useState("");
   const [refId, setRefId] = useState(0);
 
   const handleInput = e => {
     setTodoItem(e.target.value);
-  };
-
-  const handleRefInput = e => {
-    if (!Number.isInteger(parseInt(e.target.value))) {
-      alert("숫자만 입력해주세요!");
-      e.target.value = "";
-    }
-    setRefId(parseInt(e.target.value));
-  };
-
-  const handleAddBtn = () => {
     const date = new Date();
-    setInitialTime(
-      "date >>",
+
+    setInitialDate(
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     );
   };
+
+  const handleRefInput = e => {
+    let refNumber = parseInt(e.target.value);
+    if (!Number.isInteger(refNumber)) {
+      alert("숫자만 입력해주세요!");
+      e.target.value = "";
+    } else {
+      if (props.itemId.includes(refNumber)) {
+        setRefId(refNumber);
+      } else {
+        alert("참조 아이템 번호가 올바르지 않습니다.");
+        e.target.value = "";
+      }
+    }
+  };
+
+  // 백엔드로 post 요청 보내기
+  const handleAddBtn = () => {
+    axios
+      .post("http://localhost:8030/todo-list", {
+        todoItem: todoItem,
+        refId: refId,
+        initialDate: initialDate,
+        editTime: initialDate,
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log("error >>", error);
+      });
+  };
+
+  console.log("백에서 넘어온 아이템 id >>", props.itemId);
 
   return (
     <div className="TodoCreator">
@@ -51,4 +75,4 @@ function TodoCreator() {
   );
 }
 
-export default TodoCreator;
+export default React.memo(TodoCreator);
