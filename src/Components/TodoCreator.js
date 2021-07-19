@@ -13,7 +13,11 @@ function TodoCreator(props) {
     const date = new Date();
 
     setInitialDate(
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+      date.getFullYear() +
+        "-" +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + date.getDate()).slice(-2)
     );
   };
 
@@ -42,14 +46,13 @@ function TodoCreator(props) {
         editTime: initialDate,
       })
       .then(response => {
-        console.log(response);
+        alert(response.data);
       })
+      .then(window.location.reload())
       .catch(error => {
-        console.log("error >>", error);
+        alert("error >>", error);
       });
   };
-
-  console.log("백에서 넘어온 아이템 id >>", props.itemId);
 
   return (
     <div className="TodoCreator">
@@ -60,8 +63,6 @@ function TodoCreator(props) {
           onChange={handleInput}
           placeholder="할 일을 입력해주세요"
         />
-        {/* 조건부로 돌려서 만약 입력한 아이템 번호가 백에서 받은 아이템
-        아이디 range에 없는 숫자면 입력 번호를 다시 해달라고 하기 */}
         <input
           className="refInput"
           placeholder="참조 todo 아이템 번호를 입력해주세요."
