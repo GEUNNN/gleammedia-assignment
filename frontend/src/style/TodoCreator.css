@@ -1,0 +1,51 @@
+.TodoMain {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  color: hotpink;
+  font-size: 50px;
+  margin: 20px;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  border: 1px solid lightgrey;
+  border-radius: 1%;
+  margin-bottom: 20px;
+}
+
+.todoInput {
+  display: flex;
+  align-self: center;
+  width: 250px;
+  height: 20px;
+  margin: 10px;
+}
+
+.inputBtn {
+  display: flex;
+  align-self: center;
+  width: 200px;
+  height: 30px;
+  color: white;
+  font-weight: 600;
+  background-color: lightpink;
+  margin: 10px;
+  border: none;
+}
+
+.refInput {
+  display: flex;
+  align-self: center;
+  width: 250px;
+  height: 20px;
+  margin: 10px;
+}
