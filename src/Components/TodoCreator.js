@@ -50,7 +50,7 @@ function TodoCreator(props) {
       })
       .then(window.location.reload())
       .catch(error => {
-        alert("error >>", error);
+        alert(error);
       });
   };
 

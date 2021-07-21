@@ -6,9 +6,8 @@ import "./style/TodoMain.css";
 
 function TodoMain() {
   const [itemList, setItemList] = useState([]);
-  const [editStatus, setEditStatus] = useState(false);
-  const [updatedTodo, setUpdatedTodo] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [editTime, setEditTime] = useState("");
 
   useEffect(() => {
     axios
@@ -27,17 +26,14 @@ function TodoMain() {
     if (searchKeyword === "") {
       return item;
     } else {
-      if (item.item.toLowerCase().includes(searchKeyword.toLowerCase()))
-        return item;
+      if (
+        item.item.toLowerCase().includes(searchKeyword.toLowerCase())
+        // ||
+        // item.ref_id.includes(searchKeyword)
+      )
+        console.log();
+      // return item;
     }
-  };
-
-  const handleEditStatus = () => {
-    setEditStatus(!editStatus);
-  };
-
-  const handleEditInput = e => {
-    setUpdatedTodo(e.target.value);
   };
 
   //백엔드로 수정된 데이터 request (update)
@@ -45,20 +41,8 @@ function TodoMain() {
     axios.post("http://localhost:8030/todo-list", {});
   };
 
-  // 백엔드로 delete 요청 보내기
-  const handleDeleteBtn = e => {
-    // console.log(e.target.className);
-    axios
-      .delete(`http://localhost:8030/todo-list?id=${e.target.className}`, {
-        data: { id: e.target.className },
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => console.error(error));
-  };
-
   console.log("itemlist >>", itemList);
+  console.log("search keyword >>", searchKeyword);
 
   return (
     <div>
@@ -77,24 +61,19 @@ function TodoMain() {
           .map((item, idx) => {
             return (
               <div key={item.id} className="todoItem">
-                <TodoItem key={item.id} todoInfo={item} />
-                <button key={idx} onClick={handleEditStatus}>
+                <TodoItem
+                  key={item.id}
+                  todoInfo={item}
+                  itemId={itemList?.map(item => item.id)}
+                />
+                {/* <button key={idx} onClick={handleEditStatus}>
                   수정하기
-                </button>
-                <button
-                  className={item.id}
-                  key={itemList.id}
-                  onClick={handleDeleteBtn}
-                >
-                  삭제하기
-                </button>
-                {editStatus && <input onChange={handleEditInput} />}
-                {editStatus && (
-                  <button onClick={handleEditBtn}>업데이트</button>
-                )}
+                </button> */}
               </div>
             );
           })}
+        {/* {editStatus && <input onChange={handleEditInput} />}
+        {editStatus && <button onClick={handleEditBtn}>업데이트</button>} */}
       </div>
     </div>
   );
