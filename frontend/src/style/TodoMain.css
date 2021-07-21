@@ -1,7 +1,20 @@
 .todoRetrieve {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  justify-content: center;
+  width: auto;
+  margin: auto;
   padding: 10px;
+}
+
+.todoItem,
+.searchbox {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+.searchInput {
+  margin: 5px 0;
+  width: 50%;
 }

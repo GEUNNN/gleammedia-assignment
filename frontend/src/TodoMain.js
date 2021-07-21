@@ -31,49 +31,35 @@ function TodoMain() {
         // ||
         // item.ref_id.includes(searchKeyword)
       )
-        console.log();
-      // return item;
+        return item;
     }
   };
-
-  //백엔드로 수정된 데이터 request (update)
-  const handleEditBtn = () => {
-    axios.post("http://localhost:8030/todo-list", {});
-  };
-
-  console.log("itemlist >>", itemList);
-  console.log("search keyword >>", searchKeyword);
 
   return (
     <div>
       <TodoCreator itemId={itemList?.map(item => item.id)} />
       <div className="todoRetrieve">
         <div className="searchbox">
-          <span>검색하기: </span>
+          <span className="searchLabel">검색하기: </span>
           <input
             className="searchInput"
             onChange={handleSearchInput}
             placeholder="할 일을 검색해주세요"
           />
         </div>
-        {itemList
-          ?.filter(item => filterSearch(item))
-          .map((item, idx) => {
-            return (
-              <div key={item.id} className="todoItem">
+        <div className="todoItem">
+          {itemList
+            ?.filter(item => filterSearch(item))
+            .map((item, idx) => {
+              return (
                 <TodoItem
                   key={item.id}
                   todoInfo={item}
                   itemId={itemList?.map(item => item.id)}
                 />
-                {/* <button key={idx} onClick={handleEditStatus}>
-                  수정하기
-                </button> */}
-              </div>
-            );
-          })}
-        {/* {editStatus && <input onChange={handleEditInput} />}
-        {editStatus && <button onClick={handleEditBtn}>업데이트</button>} */}
+              );
+            })}
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,19 @@
 .TodoItem {
   display: flex;
   flex-direction: column;
+  width: 50vw;
+  border: 1px solid lightgray;
+  margin: 3px;
 }
 
 .itemData {
-  border: 1px solid black;
+  padding: 5px;
+}
+
+.btnBox {
+  margin-top: 8px;
+}
+
+.editBox {
   padding: 5px;
 }

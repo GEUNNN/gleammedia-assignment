@@ -7,6 +7,15 @@ export default function TodoItem(list) {
   const [updatedTodo, setUpdatedTodo] = useState("");
   const [editTime, setEditTime] = useState("");
   const [refInput, setRefInput] = useState("0");
+  const [done, setDone] = useState(0);
+
+  const handleCheckbox = () => {
+    if (done === 0) {
+      setDone(1);
+    } else if (done === 1) {
+      setDone(0);
+    }
+  };
 
   const handleEditStatus = () => {
     setEditStatus(!editStatus);
@@ -46,7 +55,7 @@ export default function TodoItem(list) {
 
   const handleDeleteBtn = e => {
     axios
-      .delete("http://localhost:8030/todo-list", { data: e.target.className })
+      .delete("http://localhost:8030/todo-list", { data: e.target.id })
       .then(response => {
         console.log(response);
       })
@@ -63,13 +72,18 @@ export default function TodoItem(list) {
       <div className="itemData">
         <span>{id}. </span>
         <span>{item}</span>
+        <input type="checkbox" onClick={handleCheckbox} />
         <p>최초 작성일: {inital_date}</p>
         <p>최종 수정일: {final_edit_date}</p>
         {!(ref_id === 0) && <p>@{ref_id}</p>}
-        <button onClick={handleEditStatus}>수정하기</button>
-        <button className={id} onClick={handleDeleteBtn}>
-          삭제하기
-        </button>
+        <div className="btnBox">
+          <button className="btn" onClick={handleEditStatus}>
+            수정하기
+          </button>
+          <button id={id} onClick={handleDeleteBtn}>
+            삭제하기
+          </button>
+        </div>
       </div>
       <div className="editBox">
         {editStatus && (
