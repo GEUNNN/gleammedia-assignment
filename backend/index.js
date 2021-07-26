@@ -39,13 +39,14 @@ app.post("/todo-list", (req, res) => {
     });
 
   app.put("/todo-list", (req, res) => {
-    const { todoItem, refId, editTime } = req.body;
+    const { todoItem, refId, editTime, done } = req.body;
     db("todos")
       .where({ id: req.body.id })
       .update({
         item: todoItem,
         ref_id: refId,
         final_edit_date: editTime,
+        done: done,
       })
       .then(response => {
         res.status(200).send("리스트가 수정 되었습니다.");

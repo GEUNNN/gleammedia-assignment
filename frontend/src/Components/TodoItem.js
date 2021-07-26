@@ -15,6 +15,24 @@ export default function TodoItem(list) {
     } else if (done === 1) {
       setDone(0);
     }
+    const date = new Date();
+    setEditTime(
+      date.getFullYear() +
+        "-" +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + date.getDate()).slice(-2)
+    );
+
+    axios.put(
+      "http://localhost:8030/todo-list"
+      // , {
+      //   todoItem: list.todoInfo.item,
+      //   refId: list.todoInfo.id,
+      //   editTime: editTime,
+      //   done: done,
+      // }
+    );
   };
 
   const handleEditStatus = () => {
