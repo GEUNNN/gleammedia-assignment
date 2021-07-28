@@ -28,7 +28,10 @@ function TodoMain() {
     } else {
       if (
         item.item.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        item.ref_id === parseInt(searchKeyword)
+        item.ref_id === parseInt(searchKeyword) ||
+        item.done === parseInt(searchKeyword) ||
+        item.inital_date?.includes(searchKeyword) ||
+        item.final_edit_date?.includes(searchKeyword)
       )
         return item;
     }
@@ -40,6 +43,7 @@ function TodoMain() {
       <div className="todoRetrieve">
         <div className="searchbox">
           <span className="searchLabel">검색하기: </span>
+          <span>완료는 1 미완료는 0으로 검색해주세요😉</span>
           <input
             className="searchInput"
             onChange={handleSearchInput}
