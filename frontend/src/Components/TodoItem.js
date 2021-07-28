@@ -7,13 +7,13 @@ export default function TodoItem(list) {
   const [updatedTodo, setUpdatedTodo] = useState("");
   const [editTime, setEditTime] = useState("");
   const [refInput, setRefInput] = useState("0");
-  const [done, setDone] = useState(0);
+  const [doneStatus, setDoneStatus] = useState(0);
 
   const handleCheckbox = () => {
-    if (done === 0) {
-      setDone(1);
-    } else if (done === 1) {
-      setDone(0);
+    if (doneStatus === 0) {
+      setDoneStatus(1);
+    } else if (doneStatus === 1) {
+      setDoneStatus(0);
     }
     const date = new Date();
     setEditTime(
@@ -83,7 +83,8 @@ export default function TodoItem(list) {
   console.log("todoitem props>>", list);
   console.log("handle edit input >>", updatedTodo);
 
-  const { id, item, inital_date, final_edit_date, ref_id } = list.todoInfo;
+  const { id, item, inital_date, final_edit_date, ref_id, done } =
+    list.todoInfo;
 
   return (
     <div className="TodoItem">
@@ -94,6 +95,7 @@ export default function TodoItem(list) {
         <p>최초 작성일: {inital_date}</p>
         <p>최종 수정일: {final_edit_date}</p>
         {!(ref_id === 0) && <p>@{ref_id}</p>}
+        {done === 1 && <p>완료</p>}
         <div className="btnBox">
           <button className="btn" onClick={handleEditStatus}>
             수정하기

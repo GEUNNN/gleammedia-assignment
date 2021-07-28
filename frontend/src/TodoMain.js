@@ -27,9 +27,8 @@ function TodoMain() {
       return item;
     } else {
       if (
-        item.item.toLowerCase().includes(searchKeyword.toLowerCase())
-        // ||
-        // item.ref_id.includes(searchKeyword)
+        item.item.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+        item.ref_id === parseInt(searchKeyword)
       )
         return item;
     }
